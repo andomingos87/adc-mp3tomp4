@@ -1,0 +1,13 @@
+server {
+    listen 80;  # Isso fará com que o Nginx escute na porta 80, que é a porta HTTP padrão
+    server_name 134.209.217.198;  # Substitua pelo seu IP ou domínio
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;  # Proxy para o Uvicorn rodando na porta 8000
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
